@@ -166,7 +166,7 @@ module Makara
       # Makara::Proxy control object for handling (typically
       # related to ActiveRecord connection pool management)
       @proxy.class.control_methods.each do |meth|
-        method_call = RUBY_VERSION >= "3.0.0" ? "public_send(#{meth.inspect}, ...)" : "#{meth}(*args=args, block)"
+        method_call = RUBY_VERSION >= "3.0.0" ? "public_send(#{meth.inspect}, ...)" : "public_send(\"#{meth}\", *args, &block)"
 
         extension << <<~RUBY
           def #{meth}(#{args})
